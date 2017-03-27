@@ -32,18 +32,19 @@ import java.util.concurrent.ExecutionException;
 
 public class ScrapDroid {
 
-
     HashMap<String,Object> apiResponsemap;
     List<String> apiResponsevalues;
+    URL url;
 
+    public void setUrl(URL url) {
+        this.url = url;
+    }
 
     public ScrapDroid()
     {
        apiResponsemap =new HashMap<>();
        apiResponsevalues=new ArrayList<>();
     }
-
-
 
 
     public String getResponse()
@@ -79,8 +80,6 @@ public class ScrapDroid {
     public HashMap<String,Object> getAPI(HashMap<String,String> params)
     {
 
-
-
         String response=getResponse();
 
 
@@ -93,7 +92,6 @@ public class ScrapDroid {
             String key = (String) i.next();
             String value = (String) params.get(key);
 
-
             Log.v("values", value);
             String jsonParam = value;
 
@@ -102,11 +100,9 @@ public class ScrapDroid {
 
             if (jsonParam.startsWith("{") && jsonParam.endsWith("}")) {
                 try {
-
                     JSONObject jsonObject = new JSONObject(jsonParam);
                     element = jsonObject.getString("element");
                     attr = jsonObject.getString("attr");
-
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
@@ -154,13 +150,7 @@ public class ScrapDroid {
 
         }
 
-
-
-
-
         return apiResponsemap;
-
-
     }
 
 
@@ -181,8 +171,6 @@ public class ScrapDroid {
             String response = null;
 
             try {
-
-                URL url = new URL("http://blog.gdgvitvellore.com/");
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
